@@ -101,13 +101,14 @@ class Metamask:
 
         try:
             self.ads.page.get_by_test_id('unlock-password').wait_for(timeout=5000, state='visible')
-            self.ads.page.get_by_test_id('unlock-password').fill(self.password)
+            self.ads.page.get_by_test_id('unlock-password').fill(str(self.password))
             self.ads.page.get_by_test_id('unlock-submit').click()
             random_sleep(3, 5)
             self.ads.click_if_exists(method='test_id', value='popover-close')
-        except:
+        except Exception as e:
             logger.warning(
-                f'{self.ads.profile_number} не смогли авторизоваться в metamask, вероятно уже авторизованы')
+                f'{self.ads.profile_number} не смогли авторизоваться в metamask, вероятно уже авторизованы {e}')
+
 
         if self.ads.page.get_by_test_id('account-options-menu-button').count():
             logger.info(f'{self.ads.profile_number} успешно авторизован в metamask')

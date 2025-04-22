@@ -172,3 +172,5 @@ cython_debug/
 /config/data/seeds.txt
 
 /config/data/addresses.txt
+.DS_Store
+.vscode/
