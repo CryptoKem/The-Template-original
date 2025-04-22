@@ -20,7 +20,7 @@ class Excel:
     Можно создать объект отдельно от бота, передав туда аккаунт и название таблицы.
     """
 
-    def __init__(self, account: Optional[Account] = None, file: Optional[str] = None) -> None:
+    def __init__(self, account: Account | None = None, file: str = config.PATH_EXCEL) -> None:
         """
         Инициализация класса
         :param account: объект аккаунта
@@ -32,6 +32,8 @@ class Excel:
         self._sheet: Worksheet = self._table.active
         if account:
             self.acc_row = self._find_acc_row(str(self.account.profile_number))
+        else:
+            self.account = Account(0)
 
     def change_table(self, table_name: str) -> None:
         """
@@ -58,9 +60,6 @@ class Excel:
         :param file: имя файла
         :return: имя файла
         """
-        if not file:
-            file = config.PATH_EXCEL
-            return file
         file = os.path.join(config.PATH_DATA, file)
         return file
 
